@@ -42,11 +42,20 @@ nested = "treatment:patient"
 #BG Quid sinon quand tu crées de nouvelles formules
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x1=reshape_mod_mat(dat = dat,
                 form = form,
-                nested = nested)
+                nested = nested,
+                contrasts.arg=contrasts.arg.Values)
 x1
 ##############################################################
 # Exemple 2 : idem mais modèle défini un peu autrement
@@ -76,14 +85,21 @@ nested = "treatment:patient"
 #BG Quid sinon quand tu crées de nouvelles formules
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x2=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 
-x2
-sum(x1-x2)
 
 ##############################################################
 # Exemple 3 : données longitudinale
@@ -116,11 +132,20 @@ nested = "treatment:patient"
 #BG Quid sinon quand tu crées de nouvelles formules
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x3=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 x3
 ##############################################################
 # Exemple 4 : 3 facteurs -> ajout sexe, clinique + interaction entre les 2 par rapport à Exemple 1
@@ -151,13 +176,22 @@ nested = "treatment:patient"
 
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x4=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 x4
-qr(x4)$rank
+
 ##############################################################
 # Exemple 5 : idem exemple 4 avec matrice sigulière pour sexxclinique retrait un des croisements -> singularité
 ##############################################################
@@ -188,12 +222,20 @@ nested = "treatment:patient"
 
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x5=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
-qr(x5)$rank
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 
 ##############################################################
 # Exemple 6 : cas simple de singulatité sans facteur nested
@@ -222,12 +264,20 @@ nested = NULL
 
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x6=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
-qr(x6)$rank
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 
 ##############################################################
 # Exemple 7 : encore plus simple pas de singulatité et pas de facteur nested
@@ -248,20 +298,27 @@ dat$y <- rnorm(nrow(dat))
 
 # formula
 form <- as.formula("~ sex+treatment+clinic+sex/clinic")
-form <- as.formula("~ sex+treatment+clinic+treatment/patient")
+# form <- as.formula("~ sex+treatment+clinic+treatment/patient")
 
 # nested parameter
 nested = NULL
 
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(form)
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x7=reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
-
-qr(x7)$rank
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 
 #######################################################
 ########### example metabolomics
@@ -303,11 +360,20 @@ form <- "~ arm+visit_label+arm:visit_label+arm:pid"
 
 options(contrasts = c("contr.sum", "contr.poly"))
 
+varNames <- all.vars(as.formula(form))
+contrasts.arg.Values <- list()
+length(contrasts.arg.Values) <- length(varNames)
+names(contrasts.arg.Values) <- varNames
+for (iList in seq_along(contrasts.arg.Values)) {
+  contrasts.arg.Values[[iList]] <- "contr.sum"
+}
+
 ### reshape model matrix columns linked to a nested effect
 
 x8 = reshape_mod_mat(dat = dat,
                    form = form,
-                   nested = nested)
+                   nested = nested,
+                   contrasts.arg=contrasts.arg.Values)
 
 ## multivariate (limpca) ============================
 
