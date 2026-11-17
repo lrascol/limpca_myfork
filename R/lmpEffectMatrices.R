@@ -244,6 +244,9 @@ lmpEffectMatrices <- function(resLmpModelMatrix, SS = TRUE, contrastList = NA) {
       names(parameters) <- colnames(outcomes)
     }
     
+    # Extract variance-covariance matrices of fixed effects
+    varParameters <- lapply(MM_full, stats::vcov)
+    
     # Residuals sd error
     resStdError <- sapply(MM_full, sigma)
     
@@ -308,6 +311,7 @@ lmpEffectMatrices <- function(resLmpModelMatrix, SS = TRUE, contrastList = NA) {
       predictedvalues = predictedValues,
       residuals = residuals,
       parameters = parameters,
+      varParameters = varParameters,
       modelMatrixR = modelMatrixR,
       modelMatrixByEffectR = modelMatrixByEffectR,
       effectsNamesUniqueR = effectsNamesUniqueR,

@@ -63,15 +63,15 @@ lmpBootstrapTests <- function(resLmpEffectMatrices, nboot = 100, nCores = 2, ver
       "lmpDataList", "modelMatrix", "modelMatrixByEffect",
       "effectsNamesUnique",
       "effectsNamesAll", "effectMatrices",
-      "predictedvalues", "residuals", "parameters", "modelMatrixR", 
+      "predictedvalues", "residuals", "parameters", "varParameters", "modelMatrixR", 
       "modelMatrixByEffectR", "effectsNamesUniqueR",
       "effectsNamesAllR", "effectMatricesR", "parametersR", "resStdError",
       "variancesEstimatedR", "MM_full", "varComponentsAbs", "type3SS", "variationPercentages", 
       "varPercentagesPlot"
     )
     
-    if (length(resLmpEffectMatrices) != 22) {
-      stop("List does not contain 22 arguments")
+    if (length(resLmpEffectMatrices) != 23) {
+      stop("List does not contain 23 arguments")
     }
     if (!all(names(resLmpEffectMatrices) == checkname)) {
       stop("Argument is not a resLmpEffectMatrices object")
