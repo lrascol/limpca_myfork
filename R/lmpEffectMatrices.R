@@ -53,8 +53,7 @@
 #'
 #' @import stringr
 #' @importFrom plyr laply aaply
-#' @importFrom lme4 lmer
-
+#' @importFrom lme4 lmer ranef fixef VarCorr
 
 lmpEffectMatrices <- function(resLmpModelMatrix, SS = TRUE, contrastList = NA) {
   # Create the variance percentages plots

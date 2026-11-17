@@ -40,7 +40,7 @@
 #' @import future
 #' @importFrom plyr laply llply
 #' @importFrom lmerTest rand
-#' @importFrom lme4 lmer
+#' @importFrom lme4 lmer lmerControl
 
 lmpBootstrapTests <- function(resLmpEffectMatrices, nboot = 100, nCores = 2, verbose = FALSE) {
 
